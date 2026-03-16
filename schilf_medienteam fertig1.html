@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchiLF Medienteam - 17. April 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Century Gothic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1F4E78 0%, #2E75B6 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #4ade80;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: 'Century Gothic', sans-serif;
+            font-size: 1em;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            background: #e8e8e8;
+            color: #2E75B6;
+        }
+
+        .nav-tab.active {
+            color: #2E75B6;
+            font-weight: bold;
+            border-bottom-color: #2E75B6;
+            background: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #2E75B6 0%, #4ade80 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #2E75B6;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.3);
+            border-color: #4ade80;
+        }
+
+        .timeline-item.completed::before {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .timeline-header {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #2E75B6;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-header {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(46, 117, 182, 0.2);
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: #2E75B6;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+
+        .phase-title {
+            font-size: 1.3em;
+            color: #1F4E78;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .timeline-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .timeline-item.expanded .timeline-content {
+            max-height: 2000px;
+        }
+
+        .detail-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .detail-section h4 {
+            color: #2E75B6;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .detail-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #2E75B6;
+            font-weight: bold;
+        }
+
+        .material-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .material-card:hover {
+            border-color: #2E75B6;
+            box-shadow: 0 6px 20px rgba(46, 117, 182, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .material-card h3 {
+            color: #1F4E78;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .material-card .icon {
+            font-size: 1.5em;
+        }
+
+        .material-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .material-card.expanded .material-content {
+            max-height: 3000px;
+            margin-top: 15px;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .material-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #2E75B6;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .value-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #1F4E78;
+            padding: 8px 15px;
+            border-radius: 8px;
+            margin: 5px;
+            font-size: 0.95em;
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .kanban-column {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 200px;
+        }
+
+        .kanban-column h4 {
+            color: #1F4E78;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2E75B6;
+        }
+
+        .kanban-card {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 0.9em;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Century Gothic', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: #2E75B6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1F4E78;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 117, 182, 0.3);
+        }
+
+        .btn-success {
+            background: #4ade80;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #22c55e;
+        }
+
+        .sprint-template {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px dashed #2E75B6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #1F4E78;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: 'Century Gothic', sans-serif;
+            font-size: 1em;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2E75B6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .nav-tab {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SchiLF Medienteam</h1>
+            <div class="subtitle">17. April 2025 | 08:30 – 15:00 Uhr</div>
+            <div class="subtitle" style="font-size: 1em; margin-top: 10px;">Von Medienteam zu Wandelteam – Unsere Transformation begleiten</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('overview')">📋 Überblick</button>
+            <button class="nav-tab" onclick="switchTab('timeline')">⏰ Tagesablauf</button>
+            <button class="nav-tab" onclick="switchTab('moderation')">🎯 Moderation</button>
+            <button class="nav-tab" onclick="switchTab('materials')">📚 Materialien</button>
+        </div>
+
+        <div class="content">
+            <!-- OVERVIEW TAB -->
+            <div id="overview" class="tab-content active">
+                <h2 style="color: #1F4E78; margin-bottom: 20px;">Ziele des Tages</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 25px; border-radius: 12px; border-left: 5px solid #2E75B6;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🎯</div>
+                        <h3 style="color: #1F4E78; margin-bottom: 10px;">Identität klären</h3>
+                        <p>Wer sind wir? Was ist unsere Rolle?</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 12px; border-left: 5px solid #f59e0b;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">💎</div>
+                        <h3 style="color: #92400e; margin-bottom: 10px;">Werte definieren</h3>
+                        <p>Was ist uns wichtig? Wie arbeiten wir?</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); padding: 25px; border-radius: 12px; border-left: 5px solid #22c55e;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🔍</div>
+                        <h3 style="color: #166534; margin-bottom: 10px;">Transparenz schaffen</h3>
+                        <p>Wie machen wir unsere Arbeit sichtbar?</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%); padding: 25px; border-radius: 12px; border-left: 5px solid #a855f7;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🚀</div>
+                        <h3 style="color: #581c87; margin-bottom: 10px;">Arbeit starten</h3>
+                        <p>Konkrete Projekte mit agiler Planung</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Wichtig:</strong> Dies ist ein Auftakt! Wir werden nicht alles heute abschließen, sondern Teams bilden, Verantwortlichkeiten verteilen und konkrete nächste Schritte definieren.
+                </div>
+
+                <div style="background: linear-gradient(135deg, #1F4E78 0%, #2E75B6 100%); padding: 30px; border-radius: 15px; margin-top: 30px; text-align: center; color: white;">
+                    <h2 style="color: white; margin-bottom: 15px;">📊 Unsere Edumap ist live!</h2>
+                    <p style="font-size: 1.1em; margin-bottom: 20px;">Hier seht ihr live, woran wir arbeiten – transparent und aktuell!</p>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; display: inline-block; margin-bottom: 15px;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nds.edumaps.de/79680/35624/77ze9jem4t" alt="QR-Code zur Edumap" style="display: block;">
+                        <p style="color: #1F4E78; margin-top: 10px; font-weight: bold;">QR-Code scannen</p>
+                    </div>
+                    
+                    <div>
+                        <a href="https://nds.edumaps.de/79680/35624/77ze9jem4t" target="_blank" style="display: inline-block; background: white; color: #1F4E78; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.1em; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            🔗 Zur Edumap
+                        </a>
+                    </div>
+                    
+                    <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">Link: https://nds.edumaps.de/79680/35624/77ze9jem4t</p>
+                </div>
+            </div>
+
+            <!-- TIMELINE TAB -->
+            <div id="timeline" class="tab-content">
+                <h2 style="color: #1F4E78; margin-bottom: 20px;">Tagesablauf</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge">08:30-09:00</span>
+                            <div class="phase-title">Ankommen & Check-in</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> Gemeinsame Orientierung schaffen, alle abholen</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Begrüßung (2 Min.)</li>
+                                    <li>Check-in-Runde: Was liegt aktuell oben auf? (25 Min., 5 Min. pro Person)</li>
+                                    <li>Karten schreiben und visualisieren (3 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge">09:00-09:45</span>
+                            <div class="phase-title">Wer sind wir? Name & Identität</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> 2-3 Namensoptionen sammeln, Doppelrolle klären</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Impulsfrage: "Medienteam – passt das noch?" (5 Min.)</li>
+                                    <li>Brainstorming: Namen sammeln (15 Min.)</li>
+                                    <li>Abstimmung: Top 2-3 Namen wählen (10 Min.)</li>
+                                    <li>Doppelrolle klären: Entwicklung + Multiplikation (15 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge">09:45-10:45</span>
+                            <div class="phase-title">Was wir sind: Werte & Selbstdarstellung</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> Fertige Stellenausschreibung mit Werten</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Entwurf präsentieren (10 Min.)</li>
+                                    <li>Kleingruppen: Was passt? Was fehlt? (30 Min.)</li>
+                                    <li>Gemeinsam finalisieren (20 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge" style="background: #f59e0b;">10:45-11:00</span>
+                            <div class="phase-title">☕ PAUSE</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge">11:00-12:00</span>
+                            <div class="phase-title">Was wir machen: Bausteine & Transparenz</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> Übersicht aller Aktivitäten + Transparenzplan</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Bausteine sammeln (20 Min.)</li>
+                                    <li>Visualisierung: Edumaps? Website? (20 Min.)</li>
+                                    <li>Verantwortlichkeiten klären (20 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge" style="background: #f59e0b;">12:00-12:45</span>
+                            <div class="phase-title">🍽️ MITTAGSPAUSE</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge">12:45-13:30</span>
+                            <div class="phase-title">Kanban-Board aufbauen</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> Board mit allen Themenblöcken + Priorisierung</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Themenblöcke vorstellen (10 Min.)</li>
+                                    <li>Kanban-Board bauen (20 Min.)</li>
+                                    <li>Priorisierung: Jede/r 3 Punkte (15 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge">13:30-14:30</span>
+                            <div class="phase-title">Sprint 1 Planung: Arbeit starten</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> Konkrete Arbeitspakete mit Verantwortlichen</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Kleingruppen bilden (10 Min.)</li>
+                                    <li>Sprint-Planung: Template ausfüllen (40 Min.)</li>
+                                    <li>Gallery Walk (10 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-header">
+                            <span class="time-badge" style="background: #22c55e;">14:30-14:55</span>
+                            <div class="phase-title">Check-out & Nächste Schritte</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="detail-section">
+                                <p><strong>Ziel:</strong> Verbindlichkeit, wertschätzender Abschluss</p>
+                                <p style="margin-top: 10px;"><strong>Ablauf:</strong></p>
+                                <ul>
+                                    <li>Teams präsentieren (10 Min.)</li>
+                                    <li>Nächstes Treffen planen (5 Min.)</li>
+                                    <li>Abschlussrunde (10 Min.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" onclick="markAllComplete()">✓ Alle Phasen als erledigt markieren</button>
+            </div>
+
+            <!-- MODERATION TAB -->
+            <div id="moderation" class="tab-content">
+                <h2 style="color: #1F4E78; margin-bottom: 20px;">Moderationsleitfaden</h2>
+                
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>🎤 Check-in (08:30-09:00)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>Moderationsfrage:</strong> "Was bewegt dich gerade? Was liegt bei dir oben auf – beruflich, im Team, persönlich?"
+                        </div>
+                        <p><strong>Ziel:</strong> Gemeinsame Orientierung schaffen, alle abholen, Raum für aktuelle Themen geben</p>
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Begrüßung (2 Min.):</strong> Dank fürs Kommen, Übersicht über den Tag geben</li>
+                            <li><strong>Check-in-Runde (25 Min.):</strong> Jede/r bekommt 5 Min. für: Was liegt aktuell oben auf?</li>
+                            <li><strong>Karten schreiben (3 Min.):</strong> Alle notieren ihre Top-Themen auf Karten, an Wand heften</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>🏷️ Wer sind wir? (09:00-09:45)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>Moderationsfrage:</strong> "Medienteam – passt das noch zu dem, was wir tun und sein wollen?"
+                        </div>
+                        <p><strong>Ziel:</strong> 2-3 Namensoptionen sammeln, Doppelrolle (Entwicklung + Multiplikation) klären</p>
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Impulsfrage (5 Min.):</strong> "Medienteam – passt das noch?"</li>
+                            <li><strong>Brainstorming (15 Min.):</strong> Namen sammeln, clustern (z.B. Wandelteam, SET, ...)</li>
+                            <li><strong>Abstimmung (10 Min.):</strong> Top 2-3 Namen wählen für Vorschlag an Schulleitung</li>
+                            <li><strong>Doppelrolle klären (15 Min.):</strong> "Wir sind Entwicklungsteam UND Multiplikatorenteam – was bedeutet das konkret für unsere Arbeit?"</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>💎 Werte & Selbstdarstellung (09:45-10:45)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <p><strong>Ziel:</strong> Fertige Stellenausschreibung/Selbstdarstellung mit Werten</p>
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Entwurf präsentieren (10 Min.):</strong> Du zeigst deinen vorbereiteten Entwurf (siehe Material 1)</li>
+                            <li><strong>Kleingruppen (30 Min.):</strong> Was passt? Was fehlt? Was muss raus? Welche Werte?</li>
+                            <li><strong>Gemeinsam finalisieren (20 Min.):</strong> Alle Inputs zusammenführen, gemeinsame Version erstellen</li>
+                        </ol>
+                        <div class="highlight-box" style="margin-top: 15px;">
+                            <strong>Material:</strong> Entwurf Stellenausschreibung (siehe Tab "Materialien")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>🔍 Bausteine & Transparenz (11:00-12:00)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>Moderationsfrage:</strong> "Viele KuK wissen nicht, was wir machen. Wie machen wir unsere Arbeit sichtbar?"
+                        </div>
+                        <p><strong>Ziel:</strong> Übersicht aller Aktivitäten + Plan für Transparenz (Edumaps, Website)</p>
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Bausteine sammeln (20 Min.):</strong> Was macht das Team? (siehe Material 2 als Grundlage)</li>
+                            <li><strong>Visualisierung (20 Min.):</strong> Wie stellen wir das dar? Edumaps? Website? Beide?</li>
+                            <li><strong>Verantwortlichkeiten (20 Min.):</strong> Wer macht was bis wann?</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>📊 Kanban-Board (12:45-13:30)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <p><strong>Ziel:</strong> Kanban-Board mit allen Themenblöcken + Priorisierung für Sprint 1</p>
+                        
+                        <div class="highlight-box" style="margin-bottom: 15px;">
+                            <strong>📊 Edumap zeigen:</strong> Die vorbereitete Edumap am Beamer präsentieren!<br>
+                            <a href="https://nds.edumaps.de/79680/35624/77ze9jem4t" target="_blank" style="color: #1F4E78; font-weight: bold;">→ Zur Edumap</a>
+                        </div>
+                        
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Edumap zeigen (5 Min.):</strong> Vorbereitete Edumap am Beamer, kurze Einführung</li>
+                            <li><strong>Gemeinsam ergänzen (15 Min.):</strong> Was fehlt? Welche Karten noch hinzufügen?</li>
+                            <li><strong>Priorisierung (15 Min.):</strong> Jede/r 3 Punkte, diskutieren, was in Sprint 1 kommt</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>🚀 Sprint-Planung (13:30-14:30)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <p><strong>Ziel:</strong> Konkrete Arbeitspakete mit Verantwortlichen und Terminen</p>
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Kleingruppen bilden (10 Min.):</strong> Wer an welchem Thema? Freiwillig!</li>
+                            <li><strong>Sprint-Planung (40 Min.):</strong> Template ausfüllen (siehe Material 4)</li>
+                            <li><strong>Gallery Walk (10 Min.):</strong> Was machen die anderen Teams?</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>✅ Check-out (14:30-14:55)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <p><strong>Ziel:</strong> Verbindlichkeit schaffen, nächstes Treffen planen, wertschätzend abschließen</p>
+                        <h4 style="margin-top: 15px;">Ablauf:</h4>
+                        <ol>
+                            <li><strong>Präsentation (10 Min.):</strong> Jedes Team 2 Min., Kanban-Board aktualisieren</li>
+                            <li><strong>Nächstes Treffen (5 Min.):</strong> Wann? Was steht auf der Agenda?</li>
+                            <li><strong>Abschlussrunde (10 Min.):</strong> "Wie gehe ich heute nach Hause?"</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATERIALS TAB -->
+            <div id="materials" class="tab-content">
+                <h2 style="color: #1F4E78; margin-bottom: 20px;">Materialien</h2>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>📄 Material 1: Entwurf Stellenausschreibung</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>Hinweis:</strong> Dies ist ein konkreter Entwurf zur Diskussion. Bitte ergänzt, verändert, streicht nach Belieben!
+                        </div>
+
+                        <h3 style="margin-top: 20px; color: #1F4E78;">Schulentwicklungsteam (SET) / Wandelteam</h3>
+                        <p style="font-style: italic; margin-bottom: 20px;">Wir gestalten die Zukunft unserer Schule – mach mit!</p>
+
+                        <h4>Wer wir sind</h4>
+                        <p>Wir sind das Schulentwicklungsteam der BBS Syke – ein Team von Lehrkräften, die gemeinsam daran arbeiten, unsere Schule Schritt für Schritt zu transformieren. Wir verstehen uns als Motor für Innovation und gleichzeitig als Brückenbauer zum gesamten Kollegium.</p>
+
+                        <h4 style="margin-top: 20px;">Was wir tun</h4>
+                        <p><strong>Wir sind Entwicklungsteam UND Multiplikatorenteam:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>→ Entwicklungsteam: Wir erarbeiten Konzepte (KI-Leitfaden, Medienbildungskonzept, Leitfäden für Tablets im Unterricht)</li>
+                            <li>→ Multiplikatorenteam: Wir bieten Formate an (Pädagogisches Café, IT-Sprechstunden, Workshops)</li>
+                        </ul>
+
+                        <h4 style="margin-top: 20px;">Unsere aktuellen Bausteine:</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Selbstreguliertes Lernen: Lernsituationen mit Pflicht- und Wahlmodulen entwickeln</li>
+                            <li>Raumgestaltung: Klassenräume zu Lernateliers transformieren</li>
+                            <li>Digitale Lernumgebung: itslearning optimal nutzen</li>
+                            <li>Pädagogisches Café: Regelmäßige dialogische Formate für KuK</li>
+                            <li>IT-Support: Sprechstunden und niedrigschwellige Hilfe</li>
+                        </ul>
+
+                        <h4 style="margin-top: 20px;">Unsere Werte</h4>
+                        <div style="margin-top: 10px;">
+                            <span class="value-badge">💡 Partizipation: Wir entwickeln MIT dem Kollegium</span>
+                            <span class="value-badge">🔍 Transparenz: Unsere Prozesse sind nachvollziehbar</span>
+                            <span class="value-badge">🔬 Experimentierfreude: Wir probieren aus und lernen</span>
+                            <span class="value-badge">🤝 Wertschätzung: Auf Augenhöhe mit allen</span>
+                            <span class="value-badge">✅ Verbindlichkeit: Was wir zusagen, machen wir</span>
+                        </div>
+
+                        <h4 style="margin-top: 20px;">Was wir von dir erwarten</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Bereitschaft, etwa 2-4 Stunden pro Monat zu investieren (Treffen + Aufgaben)</li>
+                            <li>Lust, Neues auszuprobieren und andere mitzunehmen</li>
+                            <li>Offenheit für verschiedene Perspektiven und konstruktives Feedback</li>
+                            <li>Kein Expertentum nötig – Neugier und Engagement reichen!</li>
+                        </ul>
+
+                        <h4 style="margin-top: 20px;">Wie du mitmachst</h4>
+                        <p>Sprich einfach jemanden aus dem Team an oder komm zum nächsten pädagogischen Café. Wir freuen uns auf dich!</p>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>🧩 Material 2: Bausteine – Was macht das Team?</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>Hinweis:</strong> Dies ist eine Grundlage zur Diskussion. Bitte ergänzt, was fehlt!
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Baustein</th>
+                                    <th>Was genau?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Pädagogisches Café</strong></td>
+                                    <td>Regelmäßige dialogische Formate für KuK zu pädagogischen Themen</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IT-Sprechstunde</strong></td>
+                                    <td>Niedrigschwellige Hilfe bei technischen Fragen</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>KI-Leitfaden</strong></td>
+                                    <td>Erstellung eines schulweiten Leitfadens für KI-Nutzung</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tablet-Leitfaden</strong></td>
+                                    <td>Leitfaden für die Nutzung von Tablets im Unterricht</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medienbildungskonzept</strong></td>
+                                    <td>Überarbeitung und Visualisierung des schulweiten Medienbildungskonzepts</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Website & Präsenz</strong></td>
+                                    <td>Seite auf Schulwebsite mit Ansprechpartnern und Aktivitäten</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Selbstreguliertes Lernen</strong></td>
+                                    <td>Entwicklung von Lernsituationen mit Pflicht- und Wahlmodulen</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Raumgestaltung</strong></td>
+                                    <td>Transformation von Klassenräumen zu Lernateliers</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>itslearning-Integration</strong></td>
+                                    <td>Einpflegung von Lernsituationen in itslearning</td>
+                                </tr>
+                                <tr style="background: #fef3c7;">
+                                    <td><strong>...</strong></td>
+                                    <td><em>Was fehlt? Bitte ergänzen!</em></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>📊 Material 3: Unsere Edumap (bereits vorbereitet!)</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>✅ Die Edumap ist bereits fertig vorbereitet!</strong><br>
+                            Ihr müsst heute nichts mehr aufbauen – nur gemeinsam durchgehen, ergänzen und priorisieren.
+                        </div>
+
+                        <h4>Was ist in der Edumap?</h4>
+                        <p>Ein visuelles Kanban-Board, das alle Aufgaben zeigt und ihren aktuellen Status. Jede Aufgabe wandert von links (Backlog) nach rechts (Done).</p>
+
+                        <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; margin: 20px 0; border: 2px solid #2E75B6;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://nds.edumaps.de/79680/35624/77ze9jem4t" alt="QR-Code zur Edumap" style="display: block; margin: 0 auto;">
+                            <p style="margin-top: 10px; font-weight: bold; color: #1F4E78;">📱 QR-Code scannen</p>
+                            <a href="https://nds.edumaps.de/79680/35624/77ze9jem4t" target="_blank" style="color: #2E75B6; font-weight: bold;">🔗 Zur Edumap</a>
+                        </div>
+
+                        <h4 style="margin-top: 20px;">Spalten des Boards:</h4>
+                        <div class="kanban-board">
+                            <div class="kanban-column">
+                                <h4>📋 Backlog</h4>
+                                <p>Alle Ideen und Aufgaben, die irgendwann gemacht werden sollen</p>
+                            </div>
+                            <div class="kanban-column">
+                                <h4>📝 To Do (Sprint 1)</h4>
+                                <p>Aufgaben für den aktuellen Sprint (bis zum nächsten Treffen)</p>
+                            </div>
+                            <div class="kanban-column">
+                                <h4>⚡ In Progress</h4>
+                                <p>Wird gerade aktiv bearbeitet</p>
+                            </div>
+                            <div class="kanban-column">
+                                <h4>👀 Review</h4>
+                                <p>Fertig, aber braucht noch Feedback vom Team</p>
+                            </div>
+                            <div class="kanban-column">
+                                <h4>✅ Done</h4>
+                                <p>Komplett fertig und abgenommen</p>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: 20px;">Was ihr heute macht:</h4>
+                        <ol>
+                            <li>Edumap gemeinsam am Beamer anschauen (5 Min.)</li>
+                            <li>Prüfen: Was fehlt? Welche Karten hinzufügen? (15 Min.)</li>
+                            <li>Priorisieren: Jede/r 3 Klebepunkte auf wichtigste Aufgaben (15 Min.)</li>
+                            <li>Sprint 1 festlegen: Top-priorisierte Aufgaben auswählen (10 Min.)</li>
+                        </ol>
+
+                        <h4 style="margin-top: 20px;">Nach dem Treffen:</h4>
+                        <p>Die Edumap wird live aktualisiert. Alle KuK können jederzeit reinschauen und sehen, woran das Team arbeitet – radikale Transparenz!</p>
+                    </div>
+                </div>
+
+                <div class="material-card" onclick="toggleMaterial(this)">
+                    <h3>
+                        <span>🚀 Material 4: Sprint-Planung Template</span>
+                        <span class="expand-icon">▼</span>
+                    </h3>
+                    <div class="material-content">
+                        <div class="highlight-box">
+                            <strong>Hinweis:</strong> Jede Kleingruppe füllt dieses Template aus. Mehrfach ausdrucken!
+                        </div>
+
+                        <div class="sprint-template">
+                            <h3>Sprint 1 Planung – [Thema eintragen]</h3>
+                            
+                            <div class="form-group">
+                                <label>Team-Mitglieder:</label>
+                                <input type="text" placeholder="Namen eintragen...">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sprint-Zeitraum:</label>
+                                <input type="text" placeholder="Heute bis ___________ (nächstes Treffen)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>1. Unser Ziel für dieses Thema (1-2 Sätze):</label>
+                                <textarea rows="3" placeholder="Was wollen wir erreichen?"></textarea>
+                            </div>
+
+                            <h4 style="margin-top: 20px;">2. Konkrete Schritte für Sprint 1</h4>
+                            <p style="margin-bottom: 10px; font-style: italic;">Was schaffen wir bis zum nächsten Treffen?</p>
+                            
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">#</th>
+                                        <th>Was?</th>
+                                        <th>Wer?</th>
+                                        <th>Bis wann?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label>3. Was brauchen wir? (Unterstützung, Ressourcen, Informationen)</label>
+                                <textarea rows="2" placeholder="Was brauchen wir?"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>4. Woran merken wir, dass wir erfolgreich waren?</label>
+                                <textarea rows="2" placeholder="Erfolgsindikator für diesen Sprint"></textarea>
+                            </div>
+
+                            <div class="highlight-box" style="margin-top: 20px;">
+                                <strong>Bringt dieses Template zum Check-out mit – ihr präsentiert eure Ergebnisse!</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Timeline expansion
+        function toggleTimeline(element) {
+            element.classList.toggle('expanded');
+            
+            // Update progress
+            updateProgress();
+        }
+
+        // Material card expansion
+        function toggleMaterial(element) {
+            element.classList.toggle('expanded');
+        }
+
+        // Mark timeline item as completed
+        function markComplete(element) {
+            const timelineItem = element.closest('.timeline-item');
+            timelineItem.classList.toggle('completed');
+            updateProgress();
+        }
+
+        // Mark all timeline items as complete
+        function markAllComplete() {
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach(item => {
+                if (!item.classList.contains('completed')) {
+                    item.classList.add('completed');
+                }
+            });
+            updateProgress();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const totalItems = document.querySelectorAll('.timeline-item').length - 2; // Minus pause items
+            const completedItems = document.querySelectorAll('.timeline-item.completed').length;
+            const progress = (completedItems / totalItems) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
